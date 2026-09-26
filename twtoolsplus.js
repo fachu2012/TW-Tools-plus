@@ -2,8 +2,15 @@
 // Licensed under the Mozilla Public License 2.0
 // https://www.mozilla.org/en-US/MPL/2.0/
 //
-// Single-extension utility pack for TurboWarp.
-// Dark-gray blocks with in-block icon. Categories separated by labels.
+// Grouped utility extensions for TurboWarp (7 colored packs).
+//
+//   Tools+ Math    — Math, Geometry          (green)
+//   Tools+ Text    — Text, Lists             (purple)
+//   Tools+ Data    — JSON, Dictionaries, Storage (orange)
+//   Tools+ Sprite  — Sprite/Stage, Camera, Input (blue)
+//   Tools+ Time    — Time, Control, Debug    (amber)
+//   Tools+ Bullets — Bullets                 (red)
+//   Tools+ Extra   — Color, Audio, Network, Misc (teal)
 //
 // UNSANDBOXED — enable "Run extension without sandbox".
 
@@ -18,17 +25,15 @@
   const BLOCK_ICON = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAIIElEQVR4nO1Za2hU2xVe5+xzTuaMxpvJa0bNw2byMJebiVAUSxuEKGklQbRcRUUMylWhBrxwfyRBLfSXVv+FKlf0hljKBW+w0Yu3QkZLjKY1gULiTTBV89TWmbwmr5k5j73P7o9kp8fJnGRiTEPBDw4Jkz3rfGvttb619g7AR3zER3xwcBwHPM8DAIAkSbB37971dXV1X3R1dX0fCAT6Q6HQqN/v73r8+PGV6urqnyUnJ/Pse6sORhwA4MiRIz9pb2//jppACNExxqphGIR99uzZs9tJSUkcx3Gr6wQjn5iYyDU0NFQxgqqqTimKMqFpWlDX9TB7FEWZUFV1ilJK3W63aLaxauRdLhfPoh4OhwOqqk6ZSbNH07SgoigTlFJaUVHhWVXyHMcBQghkWYa2trY6SikNhUKj0Ygz8izyZ86c2QIAgBBaHfLml9fU1HweC3lN04KUUnrq1KlPAQAEQZhn0ywE/xPyhYWFMiFEt0qZSPLHjx/PXYh8tN9X1IGbN2+eZHlvRV7X9TCllB47diwHAEAUxXn2WNRlWQaPx2NbUfIsOgkJCdzQ0NBzwzBIpNJEFu3Ro0fdVuRZMFJTU/nW1tZaSik9f/580Yo5wF5YXFzsYHJpRZ5SSn0+34+CIADP8/NSg9lyOp28uXf09fU9ttmsN2JZVcJI5OTkrAcAMAwDW6zjVVWddDqdn+3fvz+TUvqO6iCEgBACaWlpyOv11hcWFu4Ph8NjhmHg5OTknMzMTGlFHGBISEhYF+vakydPfkkpBYCZAhZFEQghkJGRITQ2Nt4tKCj4taIo46Io2g3DwLIsOxwOx8o6oGmattgahJCEMVaKiop+U1xc7MAYA8YYdF2HTZs2CQ8ePPhLfn5+qaIo44IgzOUMpdQwDINa2Z2vYUsAi2RfX99bgJlUWWS9AQBw9+7d583NzV/fvn372/7+/uFr167VZ2dn74wkjxCSJicn/+X3+9Xl8LQEk7z09HQ0OTn5b0KIbqVC5ocQotMIRAoA69Tt7e3fLdSll70DPM+Dz+cj4+Pjg/Hx8esJIYumEyFE03U9BPDfXeN5/h0uTBC8Xu8fCSGWtpbV5kRRBF3XoaSkJOn+/fs+jLESSWQhsJSKTD3z5wUFBZ90d3dbBuW9ixghBLquQ1ZWlnj9+vV7S/kuIUQzDANzHMdzHMcbhoHNO6frekgURfuVK1cOd3d3ax980GMGs7KyxN7e3kcLNTGrWYhSSjHGKsZYNddBMBgcppTS1tbWWlmWoza9ZYENX263e468oigTsZBns9CNGzfKS0pKkjwej62wsFDevXt3Sn19/VfMkadPn37jcrlYbXw48izybrdb7Ovre7zQ8BbNAYyxWl5e7rayX1NT83ltbe1xWZbhg5Nnkc/Ozhb7+/tblkI+HA4HKKX06tWrBwFmiv/06dMFt27d+rK+vv6raE6tCPmcnJwlk2dTKMZY3bZt2xqO4+DChQu/jOwDFRUVHo7jQJKklcn53NxcaWBg4O+xkmcHeda0NE0Lpqam8pIkgc/n+xFjrIZCodFgMDhMCNG7urq+f5+CXVCzBUEAjDHk5uZKXq/3UUZGxnZVVSfN7T4aCCFaXFzcOgCAsbGxnunp6eFAIPBa0zRqt9s5SZLWIIQkQRBslFKD53nBZrOtE0URVFUFnufnxhT2c8lgBZuXlycNDg4+XUrkKaW0o6Oj/uDBgxkbNmxAkiTN2UtMTORGRkZesF1h61+9evVXq0POklOKFdDmzZul169ft8UqleyapLGx8WJ8fDxnticIAgiCAC6Xix8dHX0V6UBvb+8ju90+N2Kzg89isHQtMzNTePLkyd/S0tK2qqo6iRCynMkBZto/Qkjy+/2dHo/npyMjI8auXbsSq6qqqtPT0z3cbBh5nhfS09O3IoQk88ig63rozZs3/6CUGrN1bQAANDc3f1tZWfmnQCAQey6JogjNzc1/eB+pvHz5chkAwJYtW2S2I5GI9n1zR47EnTt3qq24Ri3i8vLyvKKiotOxFCwDG8g6Ojq6OI6DAwcOFMXFxa0LBoNDoijazWujDXyUUkPTtOlotktLS38LABdiduDEiROVlFJjsQNKNGCMCaUU4uPjPyGEaAghKdYJ1cqxhXhENZyfn/8rJm+xEmfzu9PpTASAwYGBgX6EkKQoyvi8l1rsKsZYiSQvy3LiyMjIi1h5AABALKeqyG7L1GTHjh0JADNy2dLS8nW0nMYYq7Gc0pj6HT58eJMV16gq9Pbt2w6n0/kZxliJ5ZxLCNFsNltCZWXl9kuXLrWyaxJJkmDPnj1pGzduTKazHWnt2rVrqqur/2y325PYGQAhJI2Ojr66ePHiEYwx5jiOo5RSwzBoU1PTi87OTmUhDvNQV1f3RSzab74iP3fu3C9mycxExqL5IIRgeHj4n5F94OXLlw+s+Cx5sMvLy5Omp6f9GGPVyglFUSYY+bNnz/4cYP5FLbt2Nzcnl8vFR+vEPT09TZGNLNZmFhWHDh3KNOdhOBwOsMes71VVVdsZ+YVaPvtbSkoKH20Henp6miRJemfte4OlQVlZmfP58+c/RCuuzs7OO/v27dtgXr8QzBfBY2NjvewKRlXVKUKI3tvb+2ix9IuGqDJJCAGEENy7d8/v9XpLd+7cmbJ169ZPHQ5H4tDQkL+tra27qalpDGM8d6+5GOjsFczExARtaWmpKysr+x0TCZ7nhYcPH37D3huLvZiwWGSXelvA5v3ZS9zfT01N+aampnwNDQ1VDodj9f9L+REf8X+I/wA3LW7YzWIMaQAAAABJRU5ErkJggg==';
 
   const toNumber = (v) => Number(v) || 0;
-
   const savedKeys = new Map();
   function storageKey(key) {
     return `twtoolsplus:${key}`;
   }
-
   function label(text) {
     return { blockType: Scratch.BlockType.LABEL, text };
   }
 
-  class TWToolsPlus {
+  class TWToolsPlusCore {
     constructor() {
       this.runtime = Scratch.vm.runtime;
 
@@ -148,1412 +153,6 @@
       });
     }
 
-    getInfo() {
-      return {
-        id: 'twtoolsplus',
-        name: 'Tools+',
-        color1: '#3D3D42',
-        color2: '#2F2F34',
-        color3: '#222226',
-        menuIconURI: MENU_ICON,
-        blockIconURI: BLOCK_ICON,
-        blocks: [
-          // ========== MATH ==========
-          label('Math'),
-          {
-            opcode: 'mathRound',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'round [N] to [DECIMALS] decimal places',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3.14159 },
-              DECIMALS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 }
-            }
-          },
-          {
-            opcode: 'mathMap',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'map [VALUE] from [A] - [B] to [C] - [D]',
-            arguments: {
-              VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 },
-              A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
-              C: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              D: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
-            }
-          },
-          {
-            opcode: 'mathClamp',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'clamp [VALUE] between [MIN] and [MAX]',
-            arguments: {
-              VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              MIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'mathDistance',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'distance from ([X1],[Y1]) to ([X2],[Y2])',
-            arguments: {
-              X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
-            }
-          },
-          {
-            opcode: 'mathIsEvenOdd',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [N] [PARITY]?',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 },
-              PARITY: { type: Scratch.ArgumentType.STRING, menu: 'parityMenu', defaultValue: 'even' }
-            }
-          },
-          {
-            opcode: 'mathGcdLcm',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] of [A] and [B]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'gcdLcmMenu', defaultValue: 'GCD' },
-              A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 12 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 18 }
-            }
-          },
-          {
-            opcode: 'mathRandomSeed',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'random number with seed [SEED]',
-            arguments: { SEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 } }
-          },
-          {
-            opcode: 'mathIsBetween',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: '[N] is between [MIN] and [MAX]?',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              MIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'mathAngleBetween',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'angle between ([X1],[Y1]) and ([X2],[Y2])',
-            arguments: {
-              X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
-              Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'mathNumberToFormat',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[N] to [FORMAT]',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 14 },
-              FORMAT: { type: Scratch.ArgumentType.STRING, menu: 'numberFormatMenu', defaultValue: 'Roman numeral' }
-            }
-          },
-          {
-            opcode: 'mathLerp',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'lerp [A] to [B] by [T]',
-            arguments: {
-              A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
-              T: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
-            }
-          },
-          {
-            opcode: 'mathSign',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'sign of [N]',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: -3 } }
-          },
-          {
-            opcode: 'mathPercentChance',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: '[N] % chance?',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 } }
-          },
-          {
-            opcode: 'mathPingPong',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'ping-pong [VALUE] between [A] and [B]',
-            arguments: {
-              VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1.5 },
-              A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
-            }
-          },
-          {
-            opcode: 'mathSmoothDamp',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'smooth damp [CURRENT] toward [TARGET] (speed [SPEED])',
-            arguments: {
-              CURRENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              TARGET: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
-              SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.2 }
-            }
-          },
-          {
-            opcode: 'mathNoise1D',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'noise 1D at [X] seed [SEED]',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              SEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
-            }
-          },
-
-          // ========== TEXT ==========
-          label('Text'),
-          {
-            opcode: 'textCase',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[TEXT] to [CASE]',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
-              CASE: { type: Scratch.ArgumentType.STRING, menu: 'caseMenu', defaultValue: 'UPPERCASE' }
-            }
-          },
-          {
-            opcode: 'textReplace',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'replace [FIND] with [REPLACE] in [TEXT]',
-            arguments: {
-              FIND: { type: Scratch.ArgumentType.STRING, defaultValue: 'cat' },
-              REPLACE: { type: Scratch.ArgumentType.STRING, defaultValue: 'dog' },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'I have a cat' }
-            }
-          },
-          {
-            opcode: 'textContains',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'does [TEXT] contain [SUBSTRING]?',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
-              SUBSTRING: { type: Scratch.ArgumentType.STRING, defaultValue: 'world' }
-            }
-          },
-          {
-            opcode: 'textSplit',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'split [TEXT] by [SEPARATOR]',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'a,b,c' },
-              SEPARATOR: { type: Scratch.ArgumentType.STRING, defaultValue: ',' }
-            }
-          },
-          {
-            opcode: 'textJoinList',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'join list [LIST] with separator [SEPARATOR]',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' },
-              SEPARATOR: { type: Scratch.ArgumentType.STRING, defaultValue: ', ' }
-            }
-          },
-          {
-            opcode: 'textTrim',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'trim [TEXT]',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '  hi  ' } }
-          },
-          {
-            opcode: 'textPad',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'pad [TEXT] to [N] chars with [CHAR] ([SIDE])',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '5' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              CHAR: { type: Scratch.ArgumentType.STRING, defaultValue: '0' },
-              SIDE: { type: Scratch.ArgumentType.STRING, menu: 'padSideMenu', defaultValue: 'start' }
-            }
-          },
-          {
-            opcode: 'textMatchesPattern',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'does [TEXT] match pattern [REGEX]?',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'abc123' },
-              REGEX: { type: Scratch.ArgumentType.STRING, defaultValue: '^[a-z]+[0-9]+$' }
-            }
-          },
-          {
-            opcode: 'textCountOccurrences',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'count occurrences of [SUBSTRING] in [TEXT]',
-            arguments: {
-              SUBSTRING: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'banana' }
-            }
-          },
-          {
-            opcode: 'textWordCount',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'word count of [TEXT]',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello there world' } }
-          },
-          {
-            opcode: 'textTruncate',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'truncate [TEXT] to [N] chars',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'textCenter',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'center [TEXT] in width [N]',
-            arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hi' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'textEscapeHtml',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] HTML [TEXT]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'escapeMenu', defaultValue: 'escape' },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '<b>hi</b>' }
-            }
-          },
-          {
-            opcode: 'textSlugify',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'slugify [TEXT]',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'Hello World!' } }
-          },
-          {
-            opcode: 'textCompareSemver',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'compare semver [A] to [B]',
-            arguments: {
-              A: { type: Scratch.ArgumentType.STRING, defaultValue: '1.2.0' },
-              B: { type: Scratch.ArgumentType.STRING, defaultValue: '1.10.0' }
-            }
-          },
-          {
-            opcode: 'textCharsToList',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'characters of [TEXT] as list',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'abc' } }
-          },
-          {
-            opcode: 'textBase64',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] base64 [TEXT]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'base64Menu', defaultValue: 'encode' },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' }
-            }
-          },
-          {
-            opcode: 'textHash',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'hash of [TEXT]',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' } }
-          },
-          {
-            opcode: 'textRandomId',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'random id length [N]',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 } }
-          },
-          {
-            opcode: 'textFormatNumber',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'format number [N] with thousands separator',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1234567 } }
-          },
-          {
-            opcode: 'textIsNumber',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [TEXT] a number?',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '42' } }
-          },
-
-          // ========== LISTS ==========
-          label('Lists'),
-          {
-            opcode: 'listReverse',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'reverse list [LIST]',
-            arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
-          },
-          {
-            opcode: 'listShuffle',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'shuffle list [LIST]',
-            arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
-          },
-          {
-            opcode: 'listRemoveDuplicates',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'remove duplicates from [LIST]',
-            arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","a","b"]' } }
-          },
-          {
-            opcode: 'listSort',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'sort list [LIST] ([MODE])',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["3","1","2"]' },
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'sortModeMenu', defaultValue: 'numeric' }
-            }
-          },
-          {
-            opcode: 'listSublist',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'sublist of [LIST] from [I] to [J]',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c","d"]' },
-              I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              J: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
-            }
-          },
-          {
-            opcode: 'listMerge',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'merge list [LIST1] and [LIST2]',
-            arguments: {
-              LIST1: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' },
-              LIST2: { type: Scratch.ArgumentType.STRING, defaultValue: '["b"]' }
-            }
-          },
-          {
-            opcode: 'listEquals',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is list [LIST1] equal to [LIST2]?',
-            arguments: {
-              LIST1: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' },
-              LIST2: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' }
-            }
-          },
-          {
-            opcode: 'listIndexOfMinMax',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'index of [MODE] in [LIST]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'minMaxMenu', defaultValue: 'max' },
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,5,3]' }
-            }
-          },
-          {
-            opcode: 'listSumAverage',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] of [LIST]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'sumAverageMenu', defaultValue: 'sum' },
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' }
-            }
-          },
-          {
-            opcode: 'listChunk',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'chunk list [LIST] into groups of [N]',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3,4]' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 }
-            }
-          },
-          {
-            opcode: 'listFilterGreater',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'filter [LIST] numbers [OP] [N]',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,5,3,8]' },
-              OP: { type: Scratch.ArgumentType.STRING, menu: 'compareOpMenu', defaultValue: '>' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
-            }
-          },
-          {
-            opcode: 'listMapOp',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'map [LIST] with [OP] [N]',
-            arguments: {
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' },
-              OP: { type: Scratch.ArgumentType.STRING, menu: 'mapOpMenu', defaultValue: '+' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'listRandomIndex',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'random index of [LIST]',
-            arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
-          },
-          {
-            opcode: 'listStack',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'stack [OP] [VALUE] on [LIST]',
-            arguments: {
-              OP: { type: Scratch.ArgumentType.STRING, menu: 'stackOpMenu', defaultValue: 'push' },
-              VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'x' },
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[]' }
-            }
-          },
-          {
-            opcode: 'listIndexOf',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'index of [ITEM] in [LIST]',
-            arguments: {
-              ITEM: { type: Scratch.ArgumentType.STRING, defaultValue: 'b' },
-              LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' }
-            }
-          },
-          {
-            opcode: 'listWeightedPick',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'weighted pick from items [ITEMS] weights [WEIGHTS]',
-            arguments: {
-              ITEMS: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' },
-              WEIGHTS: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' }
-            }
-          },
-
-          // ========== JSON ==========
-          label('JSON'),
-          {
-            opcode: 'jsonListToJson',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'list [LIST] to JSON',
-            arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b"]' } }
-          },
-          {
-            opcode: 'jsonJsonToList',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'JSON [JSON] to list',
-            arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
-          },
-          {
-            opcode: 'jsonGetPath',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'get value from [JSON] at path [PATH]',
-            arguments: {
-              JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":{"b":1}}' },
-              PATH: { type: Scratch.ArgumentType.STRING, defaultValue: 'a.b' }
-            }
-          },
-          {
-            opcode: 'jsonSetPath',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'set value in [JSON] at path [PATH] to [VALUE]',
-            arguments: {
-              JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
-              PATH: { type: Scratch.ArgumentType.STRING, defaultValue: 'a.b' },
-              VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: '1' }
-            }
-          },
-          {
-            opcode: 'jsonHasKey',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'does [JSON] have key [KEY]?',
-            arguments: {
-              JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1}' },
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' }
-            }
-          },
-          {
-            opcode: 'jsonKeys',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'keys of [JSON]',
-            arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1,"b":2}' } }
-          },
-          {
-            opcode: 'jsonPretty',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'pretty-print [JSON]',
-            arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1}' } }
-          },
-
-          // ========== STORAGE ==========
-          label('Storage'),
-          {
-            opcode: 'storageSave',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'save [KEY] = [VALUE]',
-            arguments: {
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' },
-              VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: '0' }
-            }
-          },
-          {
-            opcode: 'storageLoad',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'load [KEY] (default [DEFAULT])',
-            arguments: {
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' },
-              DEFAULT: { type: Scratch.ArgumentType.STRING, defaultValue: '0' }
-            }
-          },
-          {
-            opcode: 'storageDelete',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'delete [KEY]',
-            arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' } }
-          },
-          {
-            opcode: 'storageHasKey',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'does key [KEY] exist?',
-            arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' } }
-          },
-          {
-            opcode: 'storageListKeys',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'list all saved keys'
-          },
-
-          // ========== SPRITE / STAGE ==========
-          label('Sprite / Stage'),
-          {
-            opcode: 'spriteDistanceTo',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'distance from this sprite to [SPRITE]',
-            arguments: { SPRITE: { type: Scratch.ArgumentType.STRING, defaultValue: 'Sprite1' } }
-          },
-          {
-            opcode: 'spriteTouchingEdge',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is this sprite touching the stage edge?'
-          },
-          {
-            opcode: 'spriteRandomPosition',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'random position on stage ([AXIS])',
-            arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
-          },
-          {
-            opcode: 'spriteCostumeSize',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'costume [DIMENSION] in px',
-            arguments: { DIMENSION: { type: Scratch.ArgumentType.STRING, menu: 'dimensionMenu', defaultValue: 'width' } }
-          },
-          {
-            opcode: 'spriteCloneNumber',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'clone number of this sprite'
-          },
-          {
-            opcode: 'spriteIsOriginalOrClone',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is this a clone?'
-          },
-          {
-            opcode: 'spritePointTowardsXY',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'point towards ([X],[Y])',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'spriteBoundingBox',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'bounding box [SIDE] of this sprite',
-            arguments: { SIDE: { type: Scratch.ArgumentType.STRING, menu: 'boxSideMenu', defaultValue: 'top' } }
-          },
-          {
-            opcode: 'spriteApplyFriction',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'apply friction [F] to velocity [V]',
-            arguments: {
-              F: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.9 },
-              V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'spriteBounceVelocity',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'bounce [AXIS] velocity [V] if touching edge',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'spriteOrbit',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'orbit [AXIS] around ([CX],[CY]) radius [R] angle [ANGLE]',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 },
-              ANGLE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'spriteSmoothFollow',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'smooth follow [AXIS] toward ([TX],[TY]) factor [F]',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              TX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              TY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              F: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.1 }
-            }
-          },
-          {
-            opcode: 'spriteSnapGrid',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'snap [VALUE] to grid [N]',
-            arguments: {
-              VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 37 },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'spriteWrapStage',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'wrap [AXIS] position [V] around stage',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 300 }
-            }
-          },
-          {
-            opcode: 'spriteDistToEdge',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'distance to nearest stage edge'
-          },
-          {
-            opcode: 'spritePointOnEdge',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'stage edge [AXIS] at direction [DIR]',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
-            }
-          },
-          {
-            opcode: 'spriteMouseAngle',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'angle to mouse'
-          },
-          {
-            opcode: 'spriteMouseDelta',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'mouse delta [AXIS] this frame',
-            arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
-          },
-          {
-            opcode: 'spriteKnockback',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'knockback by [AMOUNT] from ([X],[Y])',
-            arguments: {
-              AMOUNT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'spriteShortestTurn',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'shortest turn from [FROM] to [TO]',
-            arguments: {
-              FROM: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              TO: { type: Scratch.ArgumentType.NUMBER, defaultValue: 270 }
-            }
-          },
-
-          // ========== INPUT ==========
-          label('Input'),
-          {
-            opcode: 'inputKeyPressedThisFrame',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'was key [KEY] pressed this frame?',
-            arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'space' } }
-          },
-          {
-            opcode: 'inputLastKeyPressed',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'last key pressed'
-          },
-          {
-            opcode: 'inputMouseButtonDown',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [BUTTON] mouse button down?',
-            arguments: { BUTTON: { type: Scratch.ArgumentType.STRING, menu: 'mouseButtonMenu', defaultValue: 'left' } }
-          },
-          {
-            opcode: 'inputScrollDelta',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'mouse scroll delta this frame'
-          },
-          {
-            opcode: 'inputDoubleClick',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'was double-click detected?'
-          },
-          {
-            opcode: 'inputKeyReleasedThisFrame',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'was key [KEY] released this frame?',
-            arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'space' } }
-          },
-
-          // ========== TIME ==========
-          label('Time'),
-          {
-            opcode: 'timeTimer',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'timer [ID]',
-            arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'main' } }
-          },
-          {
-            opcode: 'timeResetTimer',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'reset timer [ID]',
-            arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'main' } }
-          },
-          {
-            opcode: 'timeCurrentFormatted',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'current date/time formatted [FORMAT]',
-            arguments: { FORMAT: { type: Scratch.ArgumentType.STRING, defaultValue: 'YYYY-MM-DD HH:mm:ss' } }
-          },
-          {
-            opcode: 'timeWaitFrames',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'wait [N] frames',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 } }
-          },
-          {
-            opcode: 'timeDaysBetween',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'days between [DATE1] and [DATE2]',
-            arguments: {
-              DATE1: { type: Scratch.ArgumentType.STRING, defaultValue: '2026-01-01' },
-              DATE2: { type: Scratch.ArgumentType.STRING, defaultValue: '2026-12-31' }
-            }
-          },
-          {
-            opcode: 'timeCooldownReady',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'cooldown [ID] ready? (use [SECONDS]s)',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'shoot' },
-              SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
-            }
-          },
-          {
-            opcode: 'timeStopwatch',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'stopwatch [ID] [OP]',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'sw1' },
-              OP: { type: Scratch.ArgumentType.STRING, menu: 'stopwatchMenu', defaultValue: 'read' }
-            }
-          },
-          {
-            opcode: 'timeEveryNFrames',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'every [N] frames ([ID])?',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 },
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'tick' }
-            }
-          },
-          {
-            opcode: 'timeTween',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'tween [ID] from [A] to [B] in [SECONDS]s ([EASING])',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 't1' },
-              A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
-              SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              EASING: { type: Scratch.ArgumentType.STRING, menu: 'easingMenu', defaultValue: 'linear' }
-            }
-          },
-          {
-            opcode: 'timeOnce',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'once [ID]?',
-            arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'init' } }
-          },
-
-          // ========== DEBUG ==========
-          label('Debug'),
-          {
-            opcode: 'debugLog',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'log [VALUE] to console',
-            arguments: { VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' } }
-          },
-          {
-            opcode: 'debugLogLevel',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'log [LEVEL] [VALUE]',
-            arguments: {
-              LEVEL: { type: Scratch.ArgumentType.STRING, menu: 'logLevelMenu', defaultValue: 'info' },
-              VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' }
-            }
-          },
-          {
-            opcode: 'debugAssert',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'assert [CONDITION] with message [TEXT]',
-            arguments: {
-              CONDITION: { type: Scratch.ArgumentType.BOOLEAN, defaultValue: true },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'assertion failed' }
-            }
-          },
-
-          // ========== COLOR ==========
-          label('Color'),
-          {
-            opcode: 'colorRgbToHex',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'RGB to hex ([R],[G],[B])',
-            arguments: {
-              R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 255 },
-              G: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'colorHexToRgb',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'hex to RGB [HEX] ([COMPONENT])',
-            arguments: {
-              HEX: { type: Scratch.ArgumentType.STRING, defaultValue: '#ff0000' },
-              COMPONENT: { type: Scratch.ArgumentType.STRING, menu: 'rgbComponentMenu', defaultValue: 'r' }
-            }
-          },
-          {
-            opcode: 'colorMix',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'mix color [C1] and [C2] by [PERCENT] %',
-            arguments: {
-              C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' },
-              C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#0000ff' },
-              PERCENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 }
-            }
-          },
-          {
-            opcode: 'colorRandom',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'random color'
-          },
-          {
-            opcode: 'colorBrightness',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'brightness of color [C]',
-            arguments: { C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' } }
-          },
-          {
-            opcode: 'colorIsLightDark',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is color [C] light?',
-            arguments: { C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' } }
-          },
-          {
-            opcode: 'colorFromHsl',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'HSL ([H],[S],[L]) to hex',
-            arguments: {
-              H: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              S: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
-              L: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 }
-            }
-          },
-          {
-            opcode: 'colorInvertGray',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] color [C]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'invertGrayMenu', defaultValue: 'invert' },
-              C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' }
-            }
-          },
-          {
-            opcode: 'colorContrast',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'contrast ratio [C1] vs [C2]',
-            arguments: {
-              C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#000000' },
-              C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ffffff' }
-            }
-          },
-          {
-            opcode: 'colorPalette',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'palette of [N] colors from hue [H]',
-            arguments: {
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              H: { type: Scratch.ArgumentType.NUMBER, defaultValue: 200 }
-            }
-          },
-          {
-            opcode: 'colorSimilar',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [C1] similar to [C2] (tolerance [T])?',
-            arguments: {
-              C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' },
-              C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ee1111' },
-              T: { type: Scratch.ArgumentType.NUMBER, defaultValue: 40 }
-            }
-          },
-
-          // ========== CAMERA ==========
-          label('Camera'),
-          {
-            opcode: 'cameraGetPosition',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'camera [AXIS] position',
-            arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
-          },
-          {
-            opcode: 'cameraSetPosition',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'set camera position to ([X],[Y])',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'cameraGetZoom',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'camera zoom'
-          },
-          {
-            opcode: 'cameraSetZoom',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'set camera zoom to [N]',
-            arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 } }
-          },
-          {
-            opcode: 'cameraWorldToScreen',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'world to screen [AXIS] at ([X],[Y])',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-
-          // ========== DICTIONARIES ==========
-          label('Dictionaries'),
-          {
-            opcode: 'dictCreate',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'create empty dictionary'
-          },
-          {
-            opcode: 'dictSet',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'set dict [DICT] key [KEY] to [VALUE]',
-            arguments: {
-              DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
-              VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'value' }
-            }
-          },
-          {
-            opcode: 'dictGet',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'get dict [DICT] key [KEY] (default [DEFAULT])',
-            arguments: {
-              DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
-              DEFAULT: { type: Scratch.ArgumentType.STRING, defaultValue: '' }
-            }
-          },
-          {
-            opcode: 'dictDeleteKey',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'delete key [KEY] from dict [DICT]',
-            arguments: {
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
-              DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' }
-            }
-          },
-          {
-            opcode: 'dictHasKey',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'does dict [DICT] have key [KEY]?',
-            arguments: {
-              DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' }
-            }
-          },
-          {
-            opcode: 'dictKeysOrValues',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'dict [DICT] [MODE]',
-            arguments: {
-              DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'keysValuesMenu', defaultValue: 'keys' }
-            }
-          },
-
-          // ========== NETWORK ==========
-          label('Network'),
-          {
-            opcode: 'netUrlEncodeDecode',
-            blockType: Scratch.BlockType.REPORTER,
-            text: '[MODE] [TEXT]',
-            arguments: {
-              MODE: { type: Scratch.ArgumentType.STRING, menu: 'urlEncodeMenu', defaultValue: 'URL-encode' },
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' }
-            }
-          },
-          {
-            opcode: 'netParseQueryString',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'parse query string [TEXT] as JSON',
-            arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'a=1&b=2' } }
-          },
-          {
-            opcode: 'netGetQueryParam',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'get query parameter [KEY] from URL [URL]',
-            arguments: {
-              KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'id' },
-              URL: { type: Scratch.ArgumentType.STRING, defaultValue: 'https://example.com?id=5' }
-            }
-          },
-
-          // ========== AUDIO ==========
-          label('Audio'),
-          {
-            opcode: 'audioCurrentVolume',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'current volume of sound [SOUND]',
-            arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
-          },
-          {
-            opcode: 'audioSetPlaybackRate',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'set playback rate of sound [SOUND] to [N]',
-            arguments: {
-              SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
-            }
-          },
-          {
-            opcode: 'audioIsPlaying',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is sound [SOUND] currently playing?',
-            arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
-          },
-          {
-            opcode: 'audioDuration',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'duration of sound [SOUND]',
-            arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
-          },
-
-          // ========== CONTROL FLOW ==========
-          label('Control flow'),
-          {
-            opcode: 'controlRunAfter',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'run task [ID] after [SECONDS] seconds',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' },
-              SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
-            }
-          },
-          {
-            opcode: 'controlCancelTask',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'cancel scheduled task [ID]',
-            arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' } }
-          },
-          {
-            opcode: 'controlDebounce',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'debounce [ID]: has [SECONDS] seconds passed since last call?',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'action1' },
-              SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
-            }
-          },
-          {
-            opcode: 'controlThrottle',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'throttle [ID]: allow call every [SECONDS] seconds?',
-            arguments: {
-              ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'action1' },
-              SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
-            }
-          },
-          {
-            opcode: 'controlTaskExists',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is task [ID] still scheduled?',
-            arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' } }
-          },
-
-          // ========== GEOMETRY ==========
-          label('Geometry'),
-          {
-            opcode: 'geoPointInRect',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'point ([X],[Y]) inside rectangle ([X1],[Y1]) - ([X2],[Y2])?',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
-              Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'geoPointInCircle',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'point ([X],[Y]) inside circle center ([CX],[CY]) radius [R]?',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'geoRectsOverlap',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'do rectangle A ([AX1],[AY1])-([AX2],[AY2]) and rectangle B ([BX1],[BY1])-([BX2],[BY2]) overlap?',
-            arguments: {
-              AX1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              AY1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              AX2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              AY2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
-              BX1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              BY1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              BX2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 },
-              BY2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 }
-            }
-          },
-          {
-            opcode: 'geoRotatePoint',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'rotate point ([X],[Y]) around ([CX],[CY]) by [ANGLE] degrees ([AXIS])',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              ANGLE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' }
-            }
-          },
-          {
-            opcode: 'geoMidpoint',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'midpoint [AXIS] between ([X1],[Y1]) and ([X2],[Y2])',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
-              Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'geoNormalizeVector',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'normalize vector ([X],[Y]) [AXIS]',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 },
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' }
-            }
-          },
-
-          // ========== BULLETS ==========
-          label('Bullets'),
-          {
-            opcode: 'bulletVelocityX',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'velocity X towards ([X],[Y]) at speed [SPEED]',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'bulletVelocityY',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'velocity Y towards ([X],[Y]) at speed [SPEED]',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'bulletDirectionTowards',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'direction towards ([X],[Y])',
-            arguments: {
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'bulletVelocityFromDirection',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'velocity [AXIS] from direction [DIR] speed [SPEED]',
-            arguments: {
-              AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
-              DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
-              SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'bulletSpeedFromVelocity',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'speed from velocity ([VX],[VY])',
-            arguments: {
-              VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
-            }
-          },
-          {
-            opcode: 'bulletAngleDifference',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'angle difference from [DIR1] to [DIR2]',
-            arguments: {
-              DIR1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              DIR2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
-            }
-          },
-          {
-            opcode: 'bulletSpreadDirection',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'spread direction [DIR] by [SPREAD] (index [I] of [N])',
-            arguments: {
-              DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
-              SPREAD: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 },
-              I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
-            }
-          },
-          {
-            opcode: 'bulletPointInDirectionOfMotion',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'point in direction of velocity ([VX],[VY])',
-            arguments: {
-              VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
-            }
-          },
-          {
-            opcode: 'bulletMoveByVelocity',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'move by velocity ([VX],[VY])',
-            arguments: {
-              VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
-              VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
-            }
-          },
-          {
-            opcode: 'bulletIsOffStage',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is this sprite off stage (margin [MARGIN])?',
-            arguments: { MARGIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 20 } }
-          },
-          {
-            opcode: 'bulletHomingDir',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'homing: turn [CURRENT] toward ([X],[Y]) max [MAX] °/frame',
-            arguments: {
-              CURRENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
-              X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-              MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
-            }
-          },
-          {
-            opcode: 'bulletAccelerate',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'accelerate speed [SPEED] by [ACCEL] (max [MAX])',
-            arguments: {
-              SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 },
-              ACCEL: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.2 },
-              MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
-            }
-          },
-          {
-            opcode: 'bulletCircleDir',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'circle pattern direction index [I] of [N] (offset [OFFSET])',
-            arguments: {
-              I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
-              N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 },
-              OFFSET: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
-            }
-          },
-          {
-            opcode: 'bulletSetLifetime',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'set bullet lifetime to [FRAMES] frames',
-            arguments: { FRAMES: { type: Scratch.ArgumentType.NUMBER, defaultValue: 120 } }
-          },
-          {
-            opcode: 'bulletTickLifetime',
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: 'bullet lifetime expired?'
-          },
-
-          // ========== MISC ==========
-          label('Misc'),
-          {
-            opcode: 'miscDeepCopy',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'deep copy of [JSON]',
-            arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":[1,2,3]}' } }
-          }
-        ],
-        menus: {
-          parityMenu: { items: ['even', 'odd'] },
-          gcdLcmMenu: { items: ['GCD', 'LCM'] },
-          numberFormatMenu: { items: ['Roman numeral', 'words'] },
-          caseMenu: { items: ['UPPERCASE', 'lowercase', 'Capitalized'] },
-          padSideMenu: { items: ['start', 'end'] },
-          sortModeMenu: { items: ['numeric', 'alphabetical'] },
-          minMaxMenu: { items: ['max', 'min'] },
-          sumAverageMenu: { items: ['sum', 'average'] },
-          axisMenu: { items: ['x', 'y'] },
-          dimensionMenu: { items: ['width', 'height'] },
-          boxSideMenu: { items: ['top', 'bottom', 'left', 'right'] },
-          mouseButtonMenu: { items: ['left', 'right', 'middle'] },
-          logLevelMenu: { items: ['info', 'warning', 'error'] },
-          rgbComponentMenu: { items: ['r', 'g', 'b'] },
-          keysValuesMenu: { items: ['keys', 'values'] },
-          urlEncodeMenu: { items: ['URL-encode', 'URL-decode'] },
-          escapeMenu: { items: ['escape', 'unescape'] },
-          base64Menu: { items: ['encode', 'decode'] },
-          compareOpMenu: { items: ['>', '>=', '<', '<=', '=='] },
-          mapOpMenu: { items: ['+', '-', '*', '/'] },
-          stackOpMenu: { items: ['push', 'pop', 'peek'] },
-          stopwatchMenu: { items: ['start', 'pause', 'resume', 'read', 'reset'] },
-          easingMenu: { items: ['linear', 'ease-in', 'ease-out', 'ease-in-out'] },
-          invertGrayMenu: { items: ['invert', 'grayscale'] }
-        }
-      };
-    }
-
-
-    // ===== MATH =====
     mathRound(args) {
       const factor = Math.pow(10, toNumber(args.DECIMALS));
       return Math.round(toNumber(args.N) * factor) / factor;
@@ -2530,5 +1129,1455 @@
     }
   }
 
-  Scratch.extensions.register(new TWToolsPlus());
+  const core = new TWToolsPlusCore();
+
+  const SHARED_MENUS = {
+    parityMenu: { items: ['even', 'odd'] },
+    gcdLcmMenu: { items: ['GCD', 'LCM'] },
+    numberFormatMenu: { items: ['Roman numeral', 'words'] },
+    caseMenu: { items: ['UPPERCASE', 'lowercase', 'Capitalized'] },
+    padSideMenu: { items: ['start', 'end'] },
+    sortModeMenu: { items: ['numeric', 'alphabetical'] },
+    minMaxMenu: { items: ['max', 'min'] },
+    sumAverageMenu: { items: ['sum', 'average'] },
+    axisMenu: { items: ['x', 'y'] },
+    dimensionMenu: { items: ['width', 'height'] },
+    boxSideMenu: { items: ['top', 'bottom', 'left', 'right'] },
+    mouseButtonMenu: { items: ['left', 'right', 'middle'] },
+    logLevelMenu: { items: ['info', 'warning', 'error'] },
+    rgbComponentMenu: { items: ['r', 'g', 'b'] },
+    keysValuesMenu: { items: ['keys', 'values'] },
+    urlEncodeMenu: { items: ['URL-encode', 'URL-decode'] },
+    escapeMenu: { items: ['escape', 'unescape'] },
+    base64Menu: { items: ['encode', 'decode'] },
+    compareOpMenu: { items: ['>', '>=', '<', '<=', '=='] },
+    mapOpMenu: { items: ['+', '-', '*', '/'] },
+    stackOpMenu: { items: ['push', 'pop', 'peek'] },
+    stopwatchMenu: { items: ['start', 'pause', 'resume', 'read', 'reset'] },
+    easingMenu: { items: ['linear', 'ease-in', 'ease-out', 'ease-in-out'] },
+    invertGrayMenu: { items: ['invert', 'grayscale'] }
+  };
+
+  function registerGroup(id, name, color1, color2, color3, blocks) {
+    const opcodes = [];
+    for (const b of blocks) {
+      if (b && b.opcode) opcodes.push(b.opcode);
+    }
+    class GroupExt {
+      getInfo() {
+        return {
+          id,
+          name,
+          color1,
+          color2,
+          color3,
+          menuIconURI: MENU_ICON,
+          blockIconURI: BLOCK_ICON,
+          blocks,
+          menus: SHARED_MENUS
+        };
+      }
+    }
+    for (const op of opcodes) {
+      if (typeof core[op] === 'function') {
+        GroupExt.prototype[op] = function (args, util) {
+          return core[op](args, util);
+        };
+      }
+    }
+    Scratch.extensions.register(new GroupExt());
+  }
+
+  registerGroup(
+    'twtoolsplusmath',
+    'Tools+ Math',
+    '#59C059',
+    '#4ba34b',
+    '#3e863e',
+    [
+      label('Math'),
+      {
+                  opcode: 'mathRound',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'round [N] to [DECIMALS] decimal places',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3.14159 },
+                    DECIMALS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 }
+                  }
+                },
+      {
+                  opcode: 'mathMap',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'map [VALUE] from [A] - [B] to [C] - [D]',
+                  arguments: {
+                    VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 },
+                    A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                    C: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    D: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                  }
+                },
+      {
+                  opcode: 'mathClamp',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'clamp [VALUE] between [MIN] and [MAX]',
+                  arguments: {
+                    VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    MIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'mathDistance',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'distance from ([X1],[Y1]) to ([X2],[Y2])',
+                  arguments: {
+                    X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
+                  }
+                },
+      {
+                  opcode: 'mathIsEvenOdd',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is [N] [PARITY]?',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 },
+                    PARITY: { type: Scratch.ArgumentType.STRING, menu: 'parityMenu', defaultValue: 'even' }
+                  }
+                },
+      {
+                  opcode: 'mathGcdLcm',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] of [A] and [B]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'gcdLcmMenu', defaultValue: 'GCD' },
+                    A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 12 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 18 }
+                  }
+                },
+      {
+                  opcode: 'mathRandomSeed',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'random number with seed [SEED]',
+                  arguments: { SEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 } }
+                },
+      {
+                  opcode: 'mathIsBetween',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: '[N] is between [MIN] and [MAX]?',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    MIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'mathAngleBetween',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'angle between ([X1],[Y1]) and ([X2],[Y2])',
+                  arguments: {
+                    X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                    Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'mathNumberToFormat',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[N] to [FORMAT]',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 14 },
+                    FORMAT: { type: Scratch.ArgumentType.STRING, menu: 'numberFormatMenu', defaultValue: 'Roman numeral' }
+                  }
+                },
+      {
+                  opcode: 'mathLerp',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'lerp [A] to [B] by [T]',
+                  arguments: {
+                    A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                    T: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                  }
+                },
+      {
+                  opcode: 'mathSign',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'sign of [N]',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: -3 } }
+                },
+      {
+                  opcode: 'mathPercentChance',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: '[N] % chance?',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 } }
+                },
+      {
+                  opcode: 'mathPingPong',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'ping-pong [VALUE] between [A] and [B]',
+                  arguments: {
+                    VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1.5 },
+                    A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                  }
+                },
+      {
+                  opcode: 'mathSmoothDamp',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'smooth damp [CURRENT] toward [TARGET] (speed [SPEED])',
+                  arguments: {
+                    CURRENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    TARGET: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                    SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.2 }
+                  }
+                },
+      {
+                  opcode: 'mathNoise1D',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'noise 1D at [X] seed [SEED]',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    SEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                  }
+                },
+      label('Geometry'),
+      {
+                  opcode: 'geoPointInRect',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'point ([X],[Y]) inside rectangle ([X1],[Y1]) - ([X2],[Y2])?',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                    Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'geoPointInCircle',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'point ([X],[Y]) inside circle center ([CX],[CY]) radius [R]?',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'geoRectsOverlap',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'do rectangle A ([AX1],[AY1])-([AX2],[AY2]) and rectangle B ([BX1],[BY1])-([BX2],[BY2]) overlap?',
+                  arguments: {
+                    AX1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    AY1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    AX2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    AY2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    BX1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    BY1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    BX2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 },
+                    BY2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 }
+                  }
+                },
+      {
+                  opcode: 'geoRotatePoint',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'rotate point ([X],[Y]) around ([CX],[CY]) by [ANGLE] degrees ([AXIS])',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    ANGLE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' }
+                  }
+                },
+      {
+                  opcode: 'geoMidpoint',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'midpoint [AXIS] between ([X1],[Y1]) and ([X2],[Y2])',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    X1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    X2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                    Y2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'geoNormalizeVector',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'normalize vector ([X],[Y]) [AXIS]',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 },
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' }
+                  }
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplustext',
+    'Tools+ Text',
+    '#CF63CF',
+    '#af54af',
+    '#904590',
+    [
+      label('Text'),
+      {
+                  opcode: 'textCase',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[TEXT] to [CASE]',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
+                    CASE: { type: Scratch.ArgumentType.STRING, menu: 'caseMenu', defaultValue: 'UPPERCASE' }
+                  }
+                },
+      {
+                  opcode: 'textReplace',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'replace [FIND] with [REPLACE] in [TEXT]',
+                  arguments: {
+                    FIND: { type: Scratch.ArgumentType.STRING, defaultValue: 'cat' },
+                    REPLACE: { type: Scratch.ArgumentType.STRING, defaultValue: 'dog' },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'I have a cat' }
+                  }
+                },
+      {
+                  opcode: 'textContains',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'does [TEXT] contain [SUBSTRING]?',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
+                    SUBSTRING: { type: Scratch.ArgumentType.STRING, defaultValue: 'world' }
+                  }
+                },
+      {
+                  opcode: 'textSplit',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'split [TEXT] by [SEPARATOR]',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'a,b,c' },
+                    SEPARATOR: { type: Scratch.ArgumentType.STRING, defaultValue: ',' }
+                  }
+                },
+      {
+                  opcode: 'textJoinList',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'join list [LIST] with separator [SEPARATOR]',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' },
+                    SEPARATOR: { type: Scratch.ArgumentType.STRING, defaultValue: ', ' }
+                  }
+                },
+      {
+                  opcode: 'textTrim',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'trim [TEXT]',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '  hi  ' } }
+                },
+      {
+                  opcode: 'textPad',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'pad [TEXT] to [N] chars with [CHAR] ([SIDE])',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '5' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    CHAR: { type: Scratch.ArgumentType.STRING, defaultValue: '0' },
+                    SIDE: { type: Scratch.ArgumentType.STRING, menu: 'padSideMenu', defaultValue: 'start' }
+                  }
+                },
+      {
+                  opcode: 'textMatchesPattern',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'does [TEXT] match pattern [REGEX]?',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'abc123' },
+                    REGEX: { type: Scratch.ArgumentType.STRING, defaultValue: '^[a-z]+[0-9]+$' }
+                  }
+                },
+      {
+                  opcode: 'textCountOccurrences',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'count occurrences of [SUBSTRING] in [TEXT]',
+                  arguments: {
+                    SUBSTRING: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'banana' }
+                  }
+                },
+      {
+                  opcode: 'textWordCount',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'word count of [TEXT]',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello there world' } }
+                },
+      {
+                  opcode: 'textTruncate',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'truncate [TEXT] to [N] chars',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'textCenter',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'center [TEXT] in width [N]',
+                  arguments: {
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hi' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'textEscapeHtml',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] HTML [TEXT]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'escapeMenu', defaultValue: 'escape' },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '<b>hi</b>' }
+                  }
+                },
+      {
+                  opcode: 'textSlugify',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'slugify [TEXT]',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'Hello World!' } }
+                },
+      {
+                  opcode: 'textCompareSemver',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'compare semver [A] to [B]',
+                  arguments: {
+                    A: { type: Scratch.ArgumentType.STRING, defaultValue: '1.2.0' },
+                    B: { type: Scratch.ArgumentType.STRING, defaultValue: '1.10.0' }
+                  }
+                },
+      {
+                  opcode: 'textCharsToList',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'characters of [TEXT] as list',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'abc' } }
+                },
+      {
+                  opcode: 'textBase64',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] base64 [TEXT]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'base64Menu', defaultValue: 'encode' },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' }
+                  }
+                },
+      {
+                  opcode: 'textHash',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'hash of [TEXT]',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' } }
+                },
+      {
+                  opcode: 'textRandomId',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'random id length [N]',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 } }
+                },
+      {
+                  opcode: 'textFormatNumber',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'format number [N] with thousands separator',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1234567 } }
+                },
+      {
+                  opcode: 'textIsNumber',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is [TEXT] a number?',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: '42' } }
+                },
+      label('Lists'),
+      {
+                  opcode: 'listReverse',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'reverse list [LIST]',
+                  arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
+                },
+      {
+                  opcode: 'listShuffle',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'shuffle list [LIST]',
+                  arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
+                },
+      {
+                  opcode: 'listRemoveDuplicates',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'remove duplicates from [LIST]',
+                  arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","a","b"]' } }
+                },
+      {
+                  opcode: 'listSort',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'sort list [LIST] ([MODE])',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["3","1","2"]' },
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'sortModeMenu', defaultValue: 'numeric' }
+                  }
+                },
+      {
+                  opcode: 'listSublist',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'sublist of [LIST] from [I] to [J]',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c","d"]' },
+                    I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    J: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
+                  }
+                },
+      {
+                  opcode: 'listMerge',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'merge list [LIST1] and [LIST2]',
+                  arguments: {
+                    LIST1: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' },
+                    LIST2: { type: Scratch.ArgumentType.STRING, defaultValue: '["b"]' }
+                  }
+                },
+      {
+                  opcode: 'listEquals',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is list [LIST1] equal to [LIST2]?',
+                  arguments: {
+                    LIST1: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' },
+                    LIST2: { type: Scratch.ArgumentType.STRING, defaultValue: '["a"]' }
+                  }
+                },
+      {
+                  opcode: 'listIndexOfMinMax',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'index of [MODE] in [LIST]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'minMaxMenu', defaultValue: 'max' },
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,5,3]' }
+                  }
+                },
+      {
+                  opcode: 'listSumAverage',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] of [LIST]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'sumAverageMenu', defaultValue: 'sum' },
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' }
+                  }
+                },
+      {
+                  opcode: 'listChunk',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'chunk list [LIST] into groups of [N]',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3,4]' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 }
+                  }
+                },
+      {
+                  opcode: 'listFilterGreater',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'filter [LIST] numbers [OP] [N]',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,5,3,8]' },
+                    OP: { type: Scratch.ArgumentType.STRING, menu: 'compareOpMenu', defaultValue: '>' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
+                  }
+                },
+      {
+                  opcode: 'listMapOp',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'map [LIST] with [OP] [N]',
+                  arguments: {
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' },
+                    OP: { type: Scratch.ArgumentType.STRING, menu: 'mapOpMenu', defaultValue: '+' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'listRandomIndex',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'random index of [LIST]',
+                  arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
+                },
+      {
+                  opcode: 'listStack',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'stack [OP] [VALUE] on [LIST]',
+                  arguments: {
+                    OP: { type: Scratch.ArgumentType.STRING, menu: 'stackOpMenu', defaultValue: 'push' },
+                    VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'x' },
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '[]' }
+                  }
+                },
+      {
+                  opcode: 'listIndexOf',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'index of [ITEM] in [LIST]',
+                  arguments: {
+                    ITEM: { type: Scratch.ArgumentType.STRING, defaultValue: 'b' },
+                    LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' }
+                  }
+                },
+      {
+                  opcode: 'listWeightedPick',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'weighted pick from items [ITEMS] weights [WEIGHTS]',
+                  arguments: {
+                    ITEMS: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' },
+                    WEIGHTS: { type: Scratch.ArgumentType.STRING, defaultValue: '[1,2,3]' }
+                  }
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplusdata',
+    'Tools+ Data',
+    '#FF8C1A',
+    '#d87716',
+    '#b26212',
+    [
+      label('JSON'),
+      {
+                  opcode: 'jsonListToJson',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'list [LIST] to JSON',
+                  arguments: { LIST: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b"]' } }
+                },
+      {
+                  opcode: 'jsonJsonToList',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'JSON [JSON] to list',
+                  arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '["a","b","c"]' } }
+                },
+      {
+                  opcode: 'jsonGetPath',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'get value from [JSON] at path [PATH]',
+                  arguments: {
+                    JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":{"b":1}}' },
+                    PATH: { type: Scratch.ArgumentType.STRING, defaultValue: 'a.b' }
+                  }
+                },
+      {
+                  opcode: 'jsonSetPath',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'set value in [JSON] at path [PATH] to [VALUE]',
+                  arguments: {
+                    JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
+                    PATH: { type: Scratch.ArgumentType.STRING, defaultValue: 'a.b' },
+                    VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: '1' }
+                  }
+                },
+      {
+                  opcode: 'jsonHasKey',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'does [JSON] have key [KEY]?',
+                  arguments: {
+                    JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1}' },
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'a' }
+                  }
+                },
+      {
+                  opcode: 'jsonKeys',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'keys of [JSON]',
+                  arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1,"b":2}' } }
+                },
+      {
+                  opcode: 'jsonPretty',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'pretty-print [JSON]',
+                  arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":1}' } }
+                },
+      label('Dictionaries'),
+      {
+                  opcode: 'dictCreate',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'create empty dictionary'
+                },
+      {
+                  opcode: 'dictSet',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'set dict [DICT] key [KEY] to [VALUE]',
+                  arguments: {
+                    DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
+                    VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'value' }
+                  }
+                },
+      {
+                  opcode: 'dictGet',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'get dict [DICT] key [KEY] (default [DEFAULT])',
+                  arguments: {
+                    DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
+                    DEFAULT: { type: Scratch.ArgumentType.STRING, defaultValue: '' }
+                  }
+                },
+      {
+                  opcode: 'dictDeleteKey',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'delete key [KEY] from dict [DICT]',
+                  arguments: {
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' },
+                    DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' }
+                  }
+                },
+      {
+                  opcode: 'dictHasKey',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'does dict [DICT] have key [KEY]?',
+                  arguments: {
+                    DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'name' }
+                  }
+                },
+      {
+                  opcode: 'dictKeysOrValues',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'dict [DICT] [MODE]',
+                  arguments: {
+                    DICT: { type: Scratch.ArgumentType.STRING, defaultValue: '{}' },
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'keysValuesMenu', defaultValue: 'keys' }
+                  }
+                },
+      label('Storage'),
+      {
+                  opcode: 'storageSave',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'save [KEY] = [VALUE]',
+                  arguments: {
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' },
+                    VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: '0' }
+                  }
+                },
+      {
+                  opcode: 'storageLoad',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'load [KEY] (default [DEFAULT])',
+                  arguments: {
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' },
+                    DEFAULT: { type: Scratch.ArgumentType.STRING, defaultValue: '0' }
+                  }
+                },
+      {
+                  opcode: 'storageDelete',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'delete [KEY]',
+                  arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' } }
+                },
+      {
+                  opcode: 'storageHasKey',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'does key [KEY] exist?',
+                  arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'highscore' } }
+                },
+      {
+                  opcode: 'storageListKeys',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'list all saved keys'
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplussprite',
+    'Tools+ Sprite',
+    '#4C97FF',
+    '#4080d8',
+    '#3569b2',
+    [
+      label('Sprite / Stage'),
+      {
+                  opcode: 'spriteDistanceTo',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'distance from this sprite to [SPRITE]',
+                  arguments: { SPRITE: { type: Scratch.ArgumentType.STRING, defaultValue: 'Sprite1' } }
+                },
+      {
+                  opcode: 'spriteTouchingEdge',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is this sprite touching the stage edge?'
+                },
+      {
+                  opcode: 'spriteRandomPosition',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'random position on stage ([AXIS])',
+                  arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
+                },
+      {
+                  opcode: 'spriteCostumeSize',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'costume [DIMENSION] in px',
+                  arguments: { DIMENSION: { type: Scratch.ArgumentType.STRING, menu: 'dimensionMenu', defaultValue: 'width' } }
+                },
+      {
+                  opcode: 'spriteCloneNumber',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'clone number of this sprite'
+                },
+      {
+                  opcode: 'spriteIsOriginalOrClone',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is this a clone?'
+                },
+      {
+                  opcode: 'spritePointTowardsXY',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'point towards ([X],[Y])',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'spriteBoundingBox',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'bounding box [SIDE] of this sprite',
+                  arguments: { SIDE: { type: Scratch.ArgumentType.STRING, menu: 'boxSideMenu', defaultValue: 'top' } }
+                },
+      {
+                  opcode: 'spriteApplyFriction',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'apply friction [F] to velocity [V]',
+                  arguments: {
+                    F: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.9 },
+                    V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'spriteBounceVelocity',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'bounce [AXIS] velocity [V] if touching edge',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'spriteOrbit',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'orbit [AXIS] around ([CX],[CY]) radius [R] angle [ANGLE]',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    CX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    CY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 },
+                    ANGLE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'spriteSmoothFollow',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'smooth follow [AXIS] toward ([TX],[TY]) factor [F]',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    TX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    TY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    F: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.1 }
+                  }
+                },
+      {
+                  opcode: 'spriteSnapGrid',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'snap [VALUE] to grid [N]',
+                  arguments: {
+                    VALUE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 37 },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'spriteWrapStage',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'wrap [AXIS] position [V] around stage',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    V: { type: Scratch.ArgumentType.NUMBER, defaultValue: 300 }
+                  }
+                },
+      {
+                  opcode: 'spriteDistToEdge',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'distance to nearest stage edge'
+                },
+      {
+                  opcode: 'spritePointOnEdge',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'stage edge [AXIS] at direction [DIR]',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
+                  }
+                },
+      {
+                  opcode: 'spriteMouseAngle',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'angle to mouse'
+                },
+      {
+                  opcode: 'spriteMouseDelta',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'mouse delta [AXIS] this frame',
+                  arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
+                },
+      {
+                  opcode: 'spriteKnockback',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'knockback by [AMOUNT] from ([X],[Y])',
+                  arguments: {
+                    AMOUNT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'spriteShortestTurn',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'shortest turn from [FROM] to [TO]',
+                  arguments: {
+                    FROM: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    TO: { type: Scratch.ArgumentType.NUMBER, defaultValue: 270 }
+                  }
+                },
+      label('Camera'),
+      {
+                  opcode: 'cameraGetPosition',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'camera [AXIS] position',
+                  arguments: { AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' } }
+                },
+      {
+                  opcode: 'cameraSetPosition',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'set camera position to ([X],[Y])',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'cameraGetZoom',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'camera zoom'
+                },
+      {
+                  opcode: 'cameraSetZoom',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'set camera zoom to [N]',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 } }
+                },
+      {
+                  opcode: 'cameraWorldToScreen',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'world to screen [AXIS] at ([X],[Y])',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      label('Input'),
+      {
+                  opcode: 'inputKeyPressedThisFrame',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'was key [KEY] pressed this frame?',
+                  arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'space' } }
+                },
+      {
+                  opcode: 'inputLastKeyPressed',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'last key pressed'
+                },
+      {
+                  opcode: 'inputMouseButtonDown',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is [BUTTON] mouse button down?',
+                  arguments: { BUTTON: { type: Scratch.ArgumentType.STRING, menu: 'mouseButtonMenu', defaultValue: 'left' } }
+                },
+      {
+                  opcode: 'inputScrollDelta',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'mouse scroll delta this frame'
+                },
+      {
+                  opcode: 'inputDoubleClick',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'was double-click detected?'
+                },
+      {
+                  opcode: 'inputKeyReleasedThisFrame',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'was key [KEY] released this frame?',
+                  arguments: { KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'space' } }
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplustime',
+    'Tools+ Time',
+    '#FFBF00',
+    '#d8a200',
+    '#b28500',
+    [
+      label('Time'),
+      {
+                  opcode: 'timeTimer',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'timer [ID]',
+                  arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'main' } }
+                },
+      {
+                  opcode: 'timeResetTimer',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'reset timer [ID]',
+                  arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'main' } }
+                },
+      {
+                  opcode: 'timeCurrentFormatted',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'current date/time formatted [FORMAT]',
+                  arguments: { FORMAT: { type: Scratch.ArgumentType.STRING, defaultValue: 'YYYY-MM-DD HH:mm:ss' } }
+                },
+      {
+                  opcode: 'timeWaitFrames',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'wait [N] frames',
+                  arguments: { N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 } }
+                },
+      {
+                  opcode: 'timeDaysBetween',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'days between [DATE1] and [DATE2]',
+                  arguments: {
+                    DATE1: { type: Scratch.ArgumentType.STRING, defaultValue: '2026-01-01' },
+                    DATE2: { type: Scratch.ArgumentType.STRING, defaultValue: '2026-12-31' }
+                  }
+                },
+      {
+                  opcode: 'timeCooldownReady',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'cooldown [ID] ready? (use [SECONDS]s)',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'shoot' },
+                    SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                  }
+                },
+      {
+                  opcode: 'timeStopwatch',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'stopwatch [ID] [OP]',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'sw1' },
+                    OP: { type: Scratch.ArgumentType.STRING, menu: 'stopwatchMenu', defaultValue: 'read' }
+                  }
+                },
+      {
+                  opcode: 'timeEveryNFrames',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'every [N] frames ([ID])?',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 },
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'tick' }
+                  }
+                },
+      {
+                  opcode: 'timeTween',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'tween [ID] from [A] to [B] in [SECONDS]s ([EASING])',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 't1' },
+                    A: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                    SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    EASING: { type: Scratch.ArgumentType.STRING, menu: 'easingMenu', defaultValue: 'linear' }
+                  }
+                },
+      {
+                  opcode: 'timeOnce',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'once [ID]?',
+                  arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'init' } }
+                },
+      label('Control flow'),
+      {
+                  opcode: 'controlRunAfter',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'run task [ID] after [SECONDS] seconds',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' },
+                    SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                  }
+                },
+      {
+                  opcode: 'controlCancelTask',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'cancel scheduled task [ID]',
+                  arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' } }
+                },
+      {
+                  opcode: 'controlDebounce',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'debounce [ID]: has [SECONDS] seconds passed since last call?',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'action1' },
+                    SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                  }
+                },
+      {
+                  opcode: 'controlThrottle',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'throttle [ID]: allow call every [SECONDS] seconds?',
+                  arguments: {
+                    ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'action1' },
+                    SECONDS: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.5 }
+                  }
+                },
+      {
+                  opcode: 'controlTaskExists',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is task [ID] still scheduled?',
+                  arguments: { ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'task1' } }
+                },
+      label('Debug'),
+      {
+                  opcode: 'debugLog',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'log [VALUE] to console',
+                  arguments: { VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' } }
+                },
+      {
+                  opcode: 'debugLogLevel',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'log [LEVEL] [VALUE]',
+                  arguments: {
+                    LEVEL: { type: Scratch.ArgumentType.STRING, menu: 'logLevelMenu', defaultValue: 'info' },
+                    VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello' }
+                  }
+                },
+      {
+                  opcode: 'debugAssert',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'assert [CONDITION] with message [TEXT]',
+                  arguments: {
+                    CONDITION: { type: Scratch.ArgumentType.BOOLEAN, defaultValue: true },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'assertion failed' }
+                  }
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplusbullets',
+    'Tools+ Bullets',
+    '#E25B5B',
+    '#c04d4d',
+    '#9e3f3f',
+    [
+      label('Bullets'),
+      {
+                  opcode: 'bulletVelocityX',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'velocity X towards ([X],[Y]) at speed [SPEED]',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'bulletVelocityY',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'velocity Y towards ([X],[Y]) at speed [SPEED]',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'bulletDirectionTowards',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'direction towards ([X],[Y])',
+                  arguments: {
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'bulletVelocityFromDirection',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'velocity [AXIS] from direction [DIR] speed [SPEED]',
+                  arguments: {
+                    AXIS: { type: Scratch.ArgumentType.STRING, menu: 'axisMenu', defaultValue: 'x' },
+                    DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                    SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'bulletSpeedFromVelocity',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'speed from velocity ([VX],[VY])',
+                  arguments: {
+                    VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
+                  }
+                },
+      {
+                  opcode: 'bulletAngleDifference',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'angle difference from [DIR1] to [DIR2]',
+                  arguments: {
+                    DIR1: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    DIR2: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 }
+                  }
+                },
+      {
+                  opcode: 'bulletSpreadDirection',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'spread direction [DIR] by [SPREAD] (index [I] of [N])',
+                  arguments: {
+                    DIR: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                    SPREAD: { type: Scratch.ArgumentType.NUMBER, defaultValue: 30 },
+                    I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 }
+                  }
+                },
+      {
+                  opcode: 'bulletPointInDirectionOfMotion',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'point in direction of velocity ([VX],[VY])',
+                  arguments: {
+                    VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
+                  }
+                },
+      {
+                  opcode: 'bulletMoveByVelocity',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'move by velocity ([VX],[VY])',
+                  arguments: {
+                    VX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 3 },
+                    VY: { type: Scratch.ArgumentType.NUMBER, defaultValue: 4 }
+                  }
+                },
+      {
+                  opcode: 'bulletIsOffStage',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is this sprite off stage (margin [MARGIN])?',
+                  arguments: { MARGIN: { type: Scratch.ArgumentType.NUMBER, defaultValue: 20 } }
+                },
+      {
+                  opcode: 'bulletHomingDir',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'homing: turn [CURRENT] toward ([X],[Y]) max [MAX] °/frame',
+                  arguments: {
+                    CURRENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                    X: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    Y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 }
+                  }
+                },
+      {
+                  opcode: 'bulletAccelerate',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'accelerate speed [SPEED] by [ACCEL] (max [MAX])',
+                  arguments: {
+                    SPEED: { type: Scratch.ArgumentType.NUMBER, defaultValue: 2 },
+                    ACCEL: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0.2 },
+                    MAX: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 }
+                  }
+                },
+      {
+                  opcode: 'bulletCircleDir',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'circle pattern direction index [I] of [N] (offset [OFFSET])',
+                  arguments: {
+                    I: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 8 },
+                    OFFSET: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'bulletSetLifetime',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'set bullet lifetime to [FRAMES] frames',
+                  arguments: { FRAMES: { type: Scratch.ArgumentType.NUMBER, defaultValue: 120 } }
+                },
+      {
+                  opcode: 'bulletTickLifetime',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'bullet lifetime expired?'
+                }
+    ]
+  );
+  registerGroup(
+    'twtoolsplusextra',
+    'Tools+ Extra',
+    '#0FBD8C',
+    '#0ca077',
+    '#0a8462',
+    [
+      label('Color'),
+      {
+                  opcode: 'colorRgbToHex',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'RGB to hex ([R],[G],[B])',
+                  arguments: {
+                    R: { type: Scratch.ArgumentType.NUMBER, defaultValue: 255 },
+                    G: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    B: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 }
+                  }
+                },
+      {
+                  opcode: 'colorHexToRgb',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'hex to RGB [HEX] ([COMPONENT])',
+                  arguments: {
+                    HEX: { type: Scratch.ArgumentType.STRING, defaultValue: '#ff0000' },
+                    COMPONENT: { type: Scratch.ArgumentType.STRING, menu: 'rgbComponentMenu', defaultValue: 'r' }
+                  }
+                },
+      {
+                  opcode: 'colorMix',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'mix color [C1] and [C2] by [PERCENT] %',
+                  arguments: {
+                    C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' },
+                    C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#0000ff' },
+                    PERCENT: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 }
+                  }
+                },
+      {
+                  opcode: 'colorRandom',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'random color'
+                },
+      {
+                  opcode: 'colorBrightness',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'brightness of color [C]',
+                  arguments: { C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' } }
+                },
+      {
+                  opcode: 'colorIsLightDark',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is color [C] light?',
+                  arguments: { C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' } }
+                },
+      {
+                  opcode: 'colorFromHsl',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'HSL ([H],[S],[L]) to hex',
+                  arguments: {
+                    H: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                    S: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                    L: { type: Scratch.ArgumentType.NUMBER, defaultValue: 50 }
+                  }
+                },
+      {
+                  opcode: 'colorInvertGray',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] color [C]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'invertGrayMenu', defaultValue: 'invert' },
+                    C: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' }
+                  }
+                },
+      {
+                  opcode: 'colorContrast',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'contrast ratio [C1] vs [C2]',
+                  arguments: {
+                    C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#000000' },
+                    C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ffffff' }
+                  }
+                },
+      {
+                  opcode: 'colorPalette',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'palette of [N] colors from hue [H]',
+                  arguments: {
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                    H: { type: Scratch.ArgumentType.NUMBER, defaultValue: 200 }
+                  }
+                },
+      {
+                  opcode: 'colorSimilar',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is [C1] similar to [C2] (tolerance [T])?',
+                  arguments: {
+                    C1: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff0000' },
+                    C2: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ee1111' },
+                    T: { type: Scratch.ArgumentType.NUMBER, defaultValue: 40 }
+                  }
+                },
+      label('Audio'),
+      {
+                  opcode: 'audioCurrentVolume',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'current volume of sound [SOUND]',
+                  arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
+                },
+      {
+                  opcode: 'audioSetPlaybackRate',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'set playback rate of sound [SOUND] to [N]',
+                  arguments: {
+                    SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' },
+                    N: { type: Scratch.ArgumentType.NUMBER, defaultValue: 1 }
+                  }
+                },
+      {
+                  opcode: 'audioIsPlaying',
+                  blockType: Scratch.BlockType.BOOLEAN,
+                  text: 'is sound [SOUND] currently playing?',
+                  arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
+                },
+      {
+                  opcode: 'audioDuration',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'duration of sound [SOUND]',
+                  arguments: { SOUND: { type: Scratch.ArgumentType.STRING, defaultValue: 'pop' } }
+                },
+      label('Network'),
+      {
+                  opcode: 'netUrlEncodeDecode',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: '[MODE] [TEXT]',
+                  arguments: {
+                    MODE: { type: Scratch.ArgumentType.STRING, menu: 'urlEncodeMenu', defaultValue: 'URL-encode' },
+                    TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'hello world' }
+                  }
+                },
+      {
+                  opcode: 'netParseQueryString',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'parse query string [TEXT] as JSON',
+                  arguments: { TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'a=1&b=2' } }
+                },
+      {
+                  opcode: 'netGetQueryParam',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'get query parameter [KEY] from URL [URL]',
+                  arguments: {
+                    KEY: { type: Scratch.ArgumentType.STRING, defaultValue: 'id' },
+                    URL: { type: Scratch.ArgumentType.STRING, defaultValue: 'https://example.com?id=5' }
+                  }
+                },
+      label('Misc'),
+      {
+                  opcode: 'miscDeepCopy',
+                  blockType: Scratch.BlockType.REPORTER,
+                  text: 'deep copy of [JSON]',
+                  arguments: { JSON: { type: Scratch.ArgumentType.STRING, defaultValue: '{"a":[1,2,3]}' } }
+                }
+    ]
+  );
 })(Scratch);
