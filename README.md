@@ -1,62 +1,62 @@
 # TW Tools+
 
-Extensión para [TurboWarp](https://turbowarp.org/) con más de 160 bloques nuevos: matemáticas, texto, listas, balas, colores, temporizadores y más.
+A [TurboWarp](https://turbowarp.org/) extension with 160+ extra blocks: math, text, lists, bullets, colors, timers, and more.
 
 ---
 
-## Cómo usarla
+## How to use it
 
-1. Abrí el [editor de TurboWarp](https://turbowarp.org/editor).
-2. Tocá el botón **Añadir extensión** (abajo a la izquierda, el icono de bloques).
-3. Elegí **Extensión personalizada** / **Custom Extension**.
-4. Pegá este enlace (reemplazalo por el de tu repositorio si lo subiste a GitHub):
+1. Open the [TurboWarp editor](https://turbowarp.org/editor).
+2. Click **Add Extension** (bottom-left, the block icon).
+3. Choose **Custom Extension**.
+4. Paste this link (or your own GitHub raw URL if you host the file):
 
 ```text
-https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/twtoolsplus.js
+https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/twtoolsplus.js
 ```
 
-5. Activá la opción **Ejecutar sin sandbox** / **Run without sandbox**.
-6. Confirmá.
+5. Turn on **Run extension without sandbox**.
+6. Confirm.
 
-Vas a ver la categoría **Tools+** en la barra de bloques (icono de llave inglesa). Todos los bloques son gris oscuro y traen el icono a la izquierda.
+You should see **Tools+** in the block palette (wrench icon). All blocks are dark gray and show the extension icon on the left.
 
 ---
 
-## Qué incluye
+## What’s included
 
-| Sección | Para qué sirve |
+| Section | What it’s for |
 |--------|----------------|
-| **Math** | Redondear, mapear rangos, distancias, números romanos, probabilidad, suavizado |
-| **Text** | Mayúsculas, reemplazar, cortar texto, Base64, IDs aleatorios |
-| **Lists** | Ordenar, mezclar, filtrar, apilar (push/pop), elección al azar con pesos |
-| **JSON / Dict** | Guardar y leer datos estructurados |
-| **Storage** | Guardar puntajes u otras cosas entre partidas (en el navegador) |
-| **Sprite / Stage** | Distancia a otros sprites, rebotar en bordes, seguir con suavidad, wrap |
-| **Input** | Tecla pulsada este frame, clic derecho, scroll, doble clic |
-| **Time** | Varios temporizadores, cooldowns, tween, “cada N frames” |
-| **Bullets** | Velocidad hacia un punto, abanicos, homing, tiempo de vida (ideal para shooters) |
-| **Color** | Mezclar colores, HSL, contraste, paletas |
-| **Camera** | Cámara lógica para juegos con scroll |
-| **Audio / Control / Geometry / Debug** | Extras de sonido, tareas programadas, geometría y logs |
+| **Math** | Rounding, mapping ranges, distances, Roman numerals, chance, smoothing |
+| **Text** | Case changes, replace, truncate, Base64, random IDs |
+| **Lists** | Sort, shuffle, filter, stack (push/pop), weighted random pick |
+| **JSON / Dict** | Structured data as text |
+| **Storage** | Save high scores and other data between sessions (in the browser) |
+| **Sprite / Stage** | Distance to sprites, bounce on edges, smooth follow, wrap around stage |
+| **Input** | Key pressed this frame, right-click, scroll, double-click |
+| **Time** | Multiple timers, cooldowns, tweens, “every N frames” |
+| **Bullets** | Velocity toward a point, spread shots, homing, lifetime (great for shooters) |
+| **Color** | Mix colors, HSL, contrast, palettes |
+| **Camera** | Logical camera for scrolling games |
+| **Audio / Control / Geometry / Debug** | Sound helpers, scheduled tasks, geometry, and console logs |
 
 ---
 
-## Ejemplo rápido (balas)
+## Quick example (bullets)
 
-1. Creá un clon.
-2. En el clon, usá **velocity X/Y towards (jugador) at speed 5**.
-3. En un bucle: **move by velocity** → si **is off stage** → eliminá el clon.
-
----
-
-## Importante
-
-- Tiene que cargarse **sin sandbox**. Si no activás esa opción, no va a funcionar.
-- Los proyectos que usen esta extensión **no se pueden subir a la web de Scratch**.
-- Las listas trabajan con texto tipo `["a","b","c"]` (JSON), no con las listas nativas de Scratch directamente.
+1. Create a clone.
+2. On the clone, use **velocity X/Y towards (player) at speed 5**.
+3. In a loop: **move by velocity** → if **is off stage** → delete the clone.
 
 ---
 
-## Licencia
+## Important
 
-[Mozilla Public License 2.0](LICENSE) — podés usarla y modificarla respetando la licencia.
+- Must be loaded **without the sandbox**. If that option is off, the extension will not work.
+- Projects that use this extension **cannot be uploaded to the Scratch website**.
+- List blocks use JSON text like `["a","b","c"]`, not Scratch’s built-in list variables directly.
+
+---
+
+## License
+
+[Mozilla Public License 2.0](LICENSE) — free to use and modify under the license terms.
