@@ -12,11 +12,13 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - uses: actions/checkout@v4
+
+      - uses: softprops/action-gh-release@v2
         with:
           body: |
             **Full Changelog**: [CHANGELOG.md](https://github.com/fachu2012/TW-Tools-plus/blob/main/CHANGELOG.md)
             **Documentation for specific blocks:** [BLOCKS.md](https://github.com/fachu2012/TW-Tools-plus/blob/main/BLOCKS.md)
+          files: twtoolsplus.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
